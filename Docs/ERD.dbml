@@ -1,0 +1,99 @@
+Table users {
+  id int [pk]
+  name varchar
+  email varchar [unique]
+  password varchar
+  location varchar
+  bio varchar
+  profilePhoto varchar
+  backgroundColor varchar
+}
+
+Table categories{
+id int [pk]
+title varchar
+} 
+
+Table posts {
+  id int [pk]
+  title varchar
+  body varchar
+  userId int [ref: > users.id]
+  catagoriesId int [ref: > categories.id]
+}
+
+Table photos {
+  id int [pk]
+  postId int [ref: > posts.id]
+  photoUrl varchar
+}
+
+Table guestbook {
+  id int [pk]
+  userId int [ref: > users.id]
+  profileUserId int [ref: > users.id]
+  message varchar
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table eventTags {
+  id int [pk]
+  postId int [ref: > posts.id]
+  tagName varchar
+  tagYear int
+  createdAt timestamp
+}
+
+Table likes {
+  id int [pk]
+  userId int [ref: > users.id]
+  postId int [ref: > posts.id]
+}
+
+Table wishlists {
+  id int [pk]
+  userId int [ref: > users.id]
+  itemName varchar
+  itemDescription varchar
+  amazonUrl varchar
+  addedAt timestamp
+}
+
+Table emailList {
+  id int [pk]
+  userId int [ref: > users.id]
+  email varchar
+  name varchar
+  addedAt timestamp
+}
+
+Table notifications {
+  id int [pk]
+  userId int [ref: > users.id]
+  type varchar
+  message varchar
+  relatedPostId int [ref: > posts.id]
+  isRead boolean
+  createdAt timestamp
+}
+
+Table meetups {
+  id int [pk]
+  createdByUserId int [ref: > users.id]
+  title varchar
+  description varchar
+  location varchar
+  type varchar
+  scheduledDate timestamp
+  status varchar
+  createdAt timestamp
+}
+
+Table meetupAttendees {
+  id int [pk]
+  meetupId int [ref: > meetups.id]
+  userId int [ref: > users.id]
+  status varchar
+  joinedAt timestamp
+}

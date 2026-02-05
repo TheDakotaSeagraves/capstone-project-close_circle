@@ -1,0 +1,404 @@
+# Close Circle
+
+A friends and family social app where people can share life updates, view wishlists, send holiday cards, and create shared memories together.
+
+## Overview
+
+Close Circle is a centralized platform for users to document their lives through posts, organize memories by events, and stay connected with loved ones. The platform provides a simple, organized way to share life moments with family and friends.
+
+---
+
+## User Flow & Navigation
+
+### Top Navigation Bar
+- **Home** - View personal posts and feed
+- **Posts** - View all user posts
+- **Categories** - Browse content by category
+- **Lists** - Access wishlists and email lists
+- **Logout** - Sign out of account
+
+### Left Sidebar (When Logged In)
+- User Profile Picture
+- **Edit Button** - Allows user to edit their profile
+- **Post Button** - Creates a new post (floating action)
+
+### Main Content Area
+- Grid/Flex display of all user posts
+- Each post shows: cover image, title, category, and creation date
+- Click a post to view full details, edit, or delete
+
+---
+
+## MVP Features (Core Functionality)
+
+### 1. User Accounts & Authentication
+Users can create accounts and log in securely. Upon login, they are directed to their home page where they can manage their posts and content.
+
+**Features:**
+- Email and password login
+- Secure password handling
+- Session management after login
+
+**Database Tables:** `users`
+
+---
+
+### 2. User Profiles & Customization
+Each user has a customizable profile with personal information and photos.
+
+**Features:**
+- Profile photo upload
+- Bio/about section
+- Background color customization
+- Email visible to others for contact
+- Edit profile button in sidebar
+
+**Database Tables:** `users`, `photos`
+
+---
+
+### 3. Posts & Content Management
+Users can create, view, edit, and delete posts about their lives. Posts are the core feature of the platform.
+
+**Features:**
+- Create a post with title, description, and category
+- View all personal posts on home page in grid/flex layout
+- View detailed post page with full content
+- Edit post information (title, description, category, photos)
+- Delete posts with confirmation dialog
+- Timestamps on all posts
+- Category assignment for organization
+
+**Database Tables:** `posts`, `photos`, `categories`
+
+---
+
+### 4. Categories
+Posts can be organized by categories (e.g., Travel, Family, Hobbies, Work) to help users organize and find content.
+
+**Features:**
+- Category dropdown when creating/editing posts
+- View all available categories
+- Filter posts by category
+- Each post has one primary category
+
+**Database Tables:** `categories`
+
+---
+
+## Stretch Goals (Additional Features)
+
+### 5. Guest Book
+Other users can leave messages on your profile to share notes, memories, or well-wishes.
+
+**Features:**
+- View guestbook section on user profiles
+- Write messages on other users' guestbooks
+- Messages include author name and timestamp
+- Profile owner can see all messages received
+- Messages can be edited or deleted by author
+
+**Database Tables:** `guestbook`
+
+---
+
+### 6. Likes on Posts
+Users can like posts from family and friends to show appreciation and engagement.
+
+**Features:**
+- Like/unlike button on each post
+- Like count displayed on post
+- Toggle like on and off
+- See which posts you've liked
+
+**Database Tables:** `likes`
+
+---
+
+### 7. Event Tags on Posts
+Posts can be tagged with events or occasions to help organize shared family memories.
+
+**Features:**
+- Tag posts with events (e.g., "Family Reunion 2024", "Grandma's Birthday")
+- Event tags include name and year
+- Create new event tags when editing/creating posts
+- Filter and view posts by event tag
+- Organize profile timeline by events
+
+**Database Tables:** `eventTags`
+
+---
+
+### 8. Wishlists
+Users can create wishlists to share gift ideas with family and friends for birthdays and holidays.
+
+**Features:**
+- Add wishlist items with name, description, and Amazon link
+- Wishlist displayed on user profile
+- Friends and family can view and use for gift ideas
+- Edit and delete wishlist items
+- Optional item photos
+
+**Database Tables:** `wishlists`
+
+---
+
+### 9. Email List for Cards
+Users can maintain a list of email addresses for sending holiday and greeting cards to family and friends.
+
+**Features:**
+- Add email addresses to personal email list
+- Include contact name for each email
+- Can include people without Close Circle accounts
+- Use for Christmas cards, birthday cards, and other greetings
+- Accessible from Lists navigation button
+- Edit and delete email list entries
+
+**Database Tables:** `emailList`
+
+---
+
+### 10. Notifications (Future Feature)
+Users will receive notifications for interactions on their content. To be implemented after MVP completion.
+
+**Features:**
+- Notify when someone likes a post
+- Notify when someone comments on a post
+- Notify when someone leaves a guestbook message
+- Notification center with read/unread status
+- Click notification to navigate to related content
+
+**Database Tables:** `notifications`
+
+---
+
+## Future Features (Post-MVP)
+
+- **Meetups** - Users can post meetups (spontaneous or planned) and others can request to join and receive notifications
+- **Multiple photos per post** - Enhanced photo uploads with file organization
+- **Advanced profile customization** - Additional customization options
+- **Real-time updates** - Live notifications and updates
+- **Comments on posts** - Discussion threads on posts
+- **Photo albums and galleries** - Organized photo collections
+- **Sharing with specific friends or groups** - Control who sees what
+
+---
+
+## Database Schema
+
+### users
+Core user account information
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique user identifier |
+| name | VARCHAR | User's full name |
+| email | VARCHAR UNIQUE | User's email address (for login) |
+| password | VARCHAR | Hashed password |
+| location | VARCHAR | Optional location/city |
+| bio | TEXT | User's about/bio section |
+| profilePhoto | VARCHAR | URL to profile picture |
+| backgroundColor | VARCHAR | User's chosen background color |
+| createdAt | TIMESTAMP | Account creation timestamp |
+
+---
+
+### posts
+User posts/updates about their lives
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique post identifier |
+| title | VARCHAR | Post title |
+| body | TEXT | Post description/content |
+| userId | INT FK | Foreign key to users (post author) |
+| categoryId | INT FK | Foreign key to categories |
+| createdAt | TIMESTAMP | Post creation timestamp |
+| updatedAt | TIMESTAMP | Last modified timestamp |
+
+---
+
+### categories
+Categories for organizing posts
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique category identifier |
+| title | VARCHAR | Category name (Travel, Family, Hobbies, etc.) |
+
+---
+
+### photos
+Images attached to posts
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique photo identifier |
+| postId | INT FK | Foreign key to posts |
+| photoUrl | VARCHAR | URL to the image |
+| uploadedAt | TIMESTAMP | Upload timestamp |
+
+---
+
+### guestbook
+Messages left on user profiles
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique message identifier |
+| userId | INT FK | Foreign key to users (profile owner) |
+| profileUserId | INT FK | Foreign key to users (message author) |
+| message | TEXT | Message text |
+| createdAt | TIMESTAMP | Message creation timestamp |
+| updatedAt | TIMESTAMP | Last edited timestamp |
+
+---
+
+### eventTags
+Tags for shared family/friend occasions on posts
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique tag identifier |
+| postId | INT FK | Foreign key to posts |
+| tagName | VARCHAR | Event name (Family Reunion, etc.) |
+| tagYear | INT | Year of event |
+| createdAt | TIMESTAMP | Tag creation timestamp |
+
+---
+
+### likes
+Tracks which users liked which posts
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique like identifier |
+| userId | INT FK | Foreign key to users (person who liked) |
+| postId | INT FK | Foreign key to posts (post being liked) |
+
+---
+
+### wishlists
+Wish list items for users
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique wishlist item identifier |
+| userId | INT FK | Foreign key to users |
+| itemName | VARCHAR | Name of item (required) |
+| itemDescription | TEXT | Description of item (optional) |
+| amazonUrl | VARCHAR | Link to Amazon product (optional) |
+| addedAt | TIMESTAMP | Timestamp when added |
+
+---
+
+### emailList
+Emails for sending cards and messages
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique email entry identifier |
+| userId | INT FK | Foreign key to users |
+| email | VARCHAR | Email address |
+| name | VARCHAR | Contact name |
+| addedAt | TIMESTAMP | Timestamp when added |
+
+---
+
+### notifications (Future)
+Alerts for user interactions
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique notification identifier |
+| userId | INT FK | Foreign key to users (recipient) |
+| type | VARCHAR | Type (like, comment, guestbook) |
+| message | TEXT | Notification message text |
+| relatedPostId | INT FK | Foreign key to posts (if applicable) |
+| isRead | BOOLEAN | Read status flag |
+| createdAt | TIMESTAMP | Notification creation timestamp |
+
+---
+
+### meetups (Future)
+Posts about places users are going
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique meetup identifier |
+| createdByUserId | INT FK | Foreign key to users (organizer) |
+| title | VARCHAR | Meetup title |
+| description | TEXT | Meetup description |
+| location | VARCHAR | Physical location |
+| type | VARCHAR | Type (spontaneous or planned) |
+| scheduledDate | TIMESTAMP | Date and time of meetup |
+| status | VARCHAR | Status (planned, confirmed, cancelled) |
+| createdAt | TIMESTAMP | Timestamp when created |
+
+---
+
+### meetupAttendees (Future)
+Tracks who wants to join meetups
+
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INT PK | Unique attendance record identifier |
+| meetupId | INT FK | Foreign key to meetups |
+| userId | INT FK | Foreign key to users (attendee) |
+| status | VARCHAR | Attendance status (attending, maybe, not attending) |
+| joinedAt | TIMESTAMP | Timestamp when RSVP was made |
+
+---
+
+## Implementation Priority
+
+### High Priority (MVP)
+- [ ] User authentication and login flow
+- [ ] Create, read, update, delete (CRUD) posts
+- [ ] User profiles with basic customization
+- [ ] Categories for post organization
+
+### Medium Priority (Stretch Goals)
+- [ ] Likes on posts
+- [ ] Guestbook messages
+- [ ] Event tags
+- [ ] Wishlists
+- [ ] Email lists
+
+### Lower Priority (Future)
+- [ ] Notifications system
+- [ ] Meetups feature
+- [ ] Advanced profile customization
+- [ ] Multiple photo uploads per post
+- [ ] Real-time updates
+
+---
+
+## Tech Stack (To Be Determined)
+
+- **Frontend:** [Framework/Library - TBD]
+- **Backend:** [Language/Framework - TBD]
+- **Database:** [Database - TBD]
+- **Authentication:** [Auth method - TBD]
+- **File Storage:** [Storage solution - TBD]
+
+---
+
+## Getting Started
+
+[Development setup instructions to be added]
+
+---
+
+## Project Links
+
+- **Wireframes:** [Miro Board](https://miro.com/app/board/uXjVGLKvxfg=/?share_link_id=93897380273)
+- **Database ERD:** [DBDiagram](https://dbdiagram.io/d/QuestHall-697a45f4bd82f5fce2ec8650)
+- **User Stories:** [See User Stories Document](./Close_Circle_User_Stories.docx)
+
+---
+
+## Notes
+
+This README documents the Close Circle capstone project requirements and specifications. All features are organized by priority level to guide development. The MVP focuses on core post management functionality, with additional features to be implemented as stretch goals and future enhancements.
+

@@ -1,0 +1,68 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "email": "sarah@example.com",
+      "password": "password123",
+      "location": "Nashville, TN",
+      "bio": "Love travel and photography!",
+      "profilePhoto": "https://via.placeholder.com/150",
+      "backgroundColor": "#e8f4f8",
+      "createdAt": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "name": "Mike Smith",
+      "email": "mike@example.com",
+      "password": "password123",
+      "location": "Austin, TX",
+      "bio": "Family first!",
+      "profilePhoto": "https://via.placeholder.com/150",
+      "backgroundColor": "#f0e8f8",
+      "createdAt": "2024-01-16"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "title": "Travel"
+    },
+    {
+      "id": 2,
+      "title": "Family"
+    },
+    {
+      "id": 3,
+      "title": "Hobbies"
+    },
+    {
+      "id": 4,
+      "title": "Food"
+    },
+    {
+      "id": 5,
+      "title": "Events"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Beach Trip 2024",
+      "body": "Had an amazing time at the beach with the family. The weather was perfect!",
+      "userId": 1,
+      "categoryId": 1,
+      "createdAt": "2024-01-20",
+      "updatedAt": "2024-01-20"
+    },
+    {
+      "id": 2,
+      "title": "Family Reunion",
+      "body": "Our annual family reunion was wonderful. Everyone had a blast!",
+      "userId": 2,
+      "categoryId": 2,
+      "createdAt": "2024-01-22",
+      "updatedAt": "2024-01-22"
+    }
+  ]
+}
